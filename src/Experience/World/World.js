@@ -16,7 +16,7 @@ export default class World
         this.resources.on('ready', () =>
         {
             // Setup
-            //this.ramenShop = new RamenShop()
+            this.ramenShop = new RamenShop()
             this.pizzaShop = new PizzaShop()
             //this.hologram = new Hologram()
             //this.reflections = new Reflections()

@@ -29,12 +29,12 @@ export default class Materials
             this.mapTextures()
         })
 
-        this.preLoader.on('start', () =>
-        {
-            // Setup
-            this.config.touch = this.experience.config.touch
-            this.mapEasel()
-        }) 
+        // this.preLoader.on('start', () =>
+        // {
+        //     // Setup
+        //     this.config.touch = this.experience.config.touch
+        //     this.mapEasel()
+        // }) 
 
         // Debug
         this.debugObject = {}
@@ -84,7 +84,7 @@ export default class Materials
         // this.bigScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.bigScreenDefaultTexture)
         // this.vendingMachineScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.vendingMachineDefaultTexture)
         this.arcadeScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.arcadeScreenDefaultTexture)
-
+        this.arcadeDisplayMaterial =this.getTransitionShaderMaterial(this.resources.items.arcadeScreenDefaultTexture)
 
         this.sideScreenMaterial = this.getSideScreenShaderMaterial(this.resources.items.sideScreen1Texture)
 

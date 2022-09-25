@@ -78,6 +78,12 @@ export default [
     },
 
     {
+        name: 'arcadeDefaultTexture',
+        type: 'KTX2Texture',
+        path: 'textures/screens/arcadeScreens/arcadeScreenDefault.ktx2'
+    },
+
+    {
         name: 'arcadeScreenCreditsTexture',
         type: 'KTX2Texture',
         path: 'textures/screens/arcadeScreens/arcadeScreenCredits.ktx2'

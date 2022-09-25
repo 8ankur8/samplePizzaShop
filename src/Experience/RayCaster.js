@@ -24,6 +24,7 @@ export default class RayCaster
             // Setup
             this.config.touch = this.experience.config.touch
             this.ramenShop = this.experience.world.ramenShop
+            this.pizzaShop = this.experience.world.pizzaShop
             this.hologram = this.experience.world.hologram
             this.raycaster = new THREE.Raycaster()
             this.cursorDown = new THREE.Vector2()
@@ -32,7 +33,7 @@ export default class RayCaster
             // Create sign hitboxes
             this.signHitBoxes = new THREE.Group()
             this.hitBoxMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true} )
-
+            
             this.projectsHitBox = new THREE.Mesh(
                 new THREE.BoxGeometry( 0.4, 0.6, 1.7 ),
                 this.hitBoxMaterial
@@ -273,43 +274,54 @@ export default class RayCaster
             this.vendingMachineHitBox.position.set(1.15,-1.1,2.1)
             this.vendingMachineHitBox.visible = false
 
+
             this.arcadeMachineHitBox = new THREE.Mesh(
-                new THREE.BoxGeometry( 1.3, 2.9, 1.8 ),
+                new THREE.BoxGeometry( 1.0, 2.5, 1.0 ),
                 this.hitBoxMaterial
             )
-            this.arcadeMachineHitBox.position.set(-0.58,-1.5,2.25)
+            this.arcadeMachineHitBox.position.set(-1.7,-1.9,4.3)
             this.arcadeMachineHitBox.visible = false
 
-            this.scene.add(this.vendingMachineHitBox, this.arcadeMachineHitBox)
+            //pizza wallet arcade
+
+            this.arcadeHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 1.0, 2.5, 1.0 ),
+                this.hitBoxMaterial
+            )
+            this.arcadeHitBox.position.set(-1.7,-1.9,4.3)
+            this.arcadeHitBox.visible = true
+
+
+            this.scene.add(this.vendingMachineHitBox, this.arcadeMachineHitBox,this.arcadeHitBox)
 
 
             // Debug
-            if(this.debug.active)
-            {
-                this.hitBoxVisibility = {visible:false}
-                this.debugFolder = this.debug.ui.addFolder('touchHitBoxes')
-                this.debugFolder
-                    .add(this.hitBoxVisibility, 'visible')
-                    .onChange(() =>
-                    {
-                        this.projectsHitBox.visible = this.hitBoxVisibility.visible
-                        this.jZhouHitBox.visible = this.hitBoxVisibility.visible
-                        this.articlesHitBox.visible = this.hitBoxVisibility.visible
-                        this.aboutMeHitBox.visible = this.hitBoxVisibility.visible
-                        this.creditsHitBox.visible = this.hitBoxVisibility.visible
-                        this.project1.visible = this.hitBoxVisibility.visible
-                        this.project2.visible = this.hitBoxVisibility.visible
-                        this.project3.visible = this.hitBoxVisibility.visible
-                        this.project4.visible = this.hitBoxVisibility.visible
-                        this.project5.visible = this.hitBoxVisibility.visible
-                        this.project6.visible = this.hitBoxVisibility.visible
-                        this.project7.visible = this.hitBoxVisibility.visible
-                        this.project8.visible = this.hitBoxVisibility.visible
-                        this.projectBack.visible = this.hitBoxVisibility.visible
-                        this.projectEnter.visible = this.hitBoxVisibility.visible
-                    })
+            // if(this.debug.active)
+            // {
+            //     this.hitBoxVisibility = {visible:false}
+            //     this.debugFolder = this.debug.ui.addFolder('touchHitBoxes')
+            //     this.debugFolder
+            //         .add(this.hitBoxVisibility, 'visible')
+            //         .onChange(() =>
+            //         {
+            //             this.projectsHitBox.visible = this.hitBoxVisibility.visible
+            //             this.jZhouHitBox.visible = this.hitBoxVisibility.visible
+            //             this.articlesHitBox.visible = this.hitBoxVisibility.visible
+            //             this.aboutMeHitBox.visible = this.hitBoxVisibility.visible
+            //             this.creditsHitBox.visible = this.hitBoxVisibility.visible
+            //             this.project1.visible = this.hitBoxVisibility.visible
+            //             this.project2.visible = this.hitBoxVisibility.visible
+            //             this.project3.visible = this.hitBoxVisibility.visible
+            //             this.project4.visible = this.hitBoxVisibility.visible
+            //             this.project5.visible = this.hitBoxVisibility.visible
+            //             this.project6.visible = this.hitBoxVisibility.visible
+            //             this.project7.visible = this.hitBoxVisibility.visible
+            //             this.project8.visible = this.hitBoxVisibility.visible
+            //             this.projectBack.visible = this.hitBoxVisibility.visible
+            //             this.projectEnter.visible = this.hitBoxVisibility.visible
+            //         })
                 
-            }
+            // }
 
             // Objects to test
 
@@ -341,6 +353,7 @@ export default class RayCaster
 
                 // arcadeScreen
                 this.ramenShop.arcadeScreen,
+                this.pizzaShop.arcadeDisplay,
 
                 // Models
                 this.ramenShop.ramenShop,
@@ -396,7 +409,7 @@ export default class RayCaster
 
             // add the machines
 
-            this.machinesToTest = [this.vendingMachineHitBox, this.arcadeMachineHitBox, this.ramenShop.bigScreen,
+            this.machinesToTest = [this.vendingMachineHitBox, this.arcadeMachineHitBox, this.ramenShop.bigScreen,this.arcadeHitBox,
 
                 //obstructors
                 this.ramenShop.ramenShop,
@@ -556,6 +569,10 @@ export default class RayCaster
                 case this.ramenShop.arcadeScreen:
                     this.controller.screenControls.arcadeScreen()
                     break
+
+                case this.pizzaShop.arcadeDisplay:
+                    this.controller.screenControls.arcadeScreen()
+                    break    
 
                 case this.hologramHitBox:
                     this.hologram.breakHologram()

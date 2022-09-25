@@ -20,6 +20,7 @@ export default class Controller
         this.setMenuControls()
         this.setAboutMeControls()
         this.setArcadeScreenControls()
+        this.setArcadeDisplayControls()
         this.setCamControls()
         this.setVideoControls()
         this.setSocialControls()
@@ -27,6 +28,7 @@ export default class Controller
         this.resources.on('ready', () =>
         {
             this.ramenShop = this.experience.world.ramenShop
+            this.pizzaShop = this.experience.world.pizzaShop
             this.materials = this.experience.materials
         })
 
@@ -427,6 +429,46 @@ export default class Controller
                 this.sounds.playArcade()
                 this.logic.mode = 'menu'
                 this.camControls.toDefault()
+                this.screenTransition(
+                    this.materials.arcadeScreenMaterial,
+                    this.resources.items.arcadeScreenDefaultTexture,
+                    0.2
+                )
+            }
+        }
+
+    }
+    // new
+    setArcadeDisplayControls()
+    {
+        this.screenControls = {}
+        this.screenControls.arcadeScreen = async () =>
+        {
+            if(this.logic.buttonsLocked === false && this.logic.mode === 'creditsStart' )
+            {
+                this.sounds.playArcade()
+                this.logic.mode = 'credits'
+                this.screenTransition(
+                    this.materials.arcadeScreenMaterial,
+                    this.resources.items.arcadeScreenCreditsTexture,
+                    0.2
+                )
+            }
+            else if(this.logic.buttonsLocked === false && this.logic.mode === 'credits' )
+            {
+                this.sounds.playArcade()
+                this.logic.mode = 'thanks'
+                this.screenTransition(
+                    this.materials.arcadeScreenMaterial,
+                    this.resources.items.arcadeScreenThanksTexture,
+                    0.2
+                )
+            }
+            else if(this.logic.buttonsLocked === false && this.logic.mode === 'thanks' )
+            {
+                this.sounds.playArcade()
+                this.logic.mode = 'menu'
+                //this.camControls.toDefault()
                 this.screenTransition(
                     this.materials.arcadeScreenMaterial,
                     this.resources.items.arcadeScreenDefaultTexture,
