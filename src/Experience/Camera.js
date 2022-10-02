@@ -31,6 +31,7 @@ export default class Camera
         this.setControls()
         this.setCamAngles()
         this.setTransitions()
+        
 
         if(this.debug.active)
         {
@@ -62,9 +63,9 @@ export default class Camera
     setInstance()
     {
         this.instance = new THREE.PerspectiveCamera(75, this.sizes.width / this.sizes.height, 0.4, 50)
-        this.instance.position.x = 15.9
-        this.instance.position.y = 6.8
-        this.instance.position.z = -11.4
+        this.instance.position.x = 30//15.9
+        this.instance.position.y = 5//6.8
+        this.instance.position.z = 0//-11.4
         this.scene.add(this.instance)
     }
 
@@ -72,12 +73,12 @@ export default class Camera
     {
         this.controls = new OrbitControls(this.instance, this.canvas)
         this.controls.enableDamping = true
-        this.controls.enablePan = false
+        this.controls.enablePan = true
         this.controls.rotateSpeed = 1.2
         this.controls.zoomSpeed = 0.8
         this.controls.target.z = -1
-        this.controls.enableRotate = false
-        this.controls.enableZoom = false
+        this.controls.enableRotate = true
+        this.controls.enableZoom = true
     }
 
     setCamAngles()
@@ -97,7 +98,7 @@ export default class Camera
 
         this.camAngle.default = () =>
         {
-            this.controls.minDistance = 7
+            this.controls.minDistance = 0
             this.controls.maxDistance = 16
             this.controls.minAzimuthAngle = 0 
             this.controls.maxAzimuthAngle = Math.PI *1.9999
@@ -128,8 +129,18 @@ export default class Camera
 
         this.camAngle.credits = () =>
         {
-            this.controls.minDistance = 1.5
-            this.controls.maxDistance = 2.5
+            this.controls.minDistance = 0
+            this.controls.maxDistance = 2
+            this.controls.minAzimuthAngle = -(Math.PI * 0.2) //left
+            this.controls.maxAzimuthAngle = Math.PI * 0.2 //right
+            this.controls.minPolarAngle = Math.PI * .3
+            this.controls.maxPolarAngle = Math.PI * .65
+        }
+
+        this.camAngle.roadmaps = () =>
+        {
+            this.controls.minDistance = 0
+            this.controls.maxDistance = 2
             this.controls.minAzimuthAngle = -(Math.PI * 0.2) //left
             this.controls.maxAzimuthAngle = Math.PI * 0.2 //right
             this.controls.minPolarAngle = Math.PI * .3
@@ -142,98 +153,45 @@ export default class Camera
     {
         this.transitions = {}
 
-        this.transitions.vendingMachine = async (duration) =>
-        {
-            this.controls.enableRotate = false
-            this.controls.enableZoom = false
-
-            gsap.to(this.instance.position, { duration: duration, ease: "power1.inOut",
-            x: 1.15,
-            y:-1.2,
-            z:this.projectsDistance})
-            gsap.to(this.controls.target, { duration: duration, ease: "power1.inOut",
-            x: 1.15,
-            y:-1.2,
-            z:1.7})
-
-            await this.sleep(1500)
-            // this.controls.enableRotate = true
-            this.controls.enableZoom = true
-        }
-
         this.transitions.default = async (duration) =>
         {
             this.controls.enableRotate = false
             this.controls.enableZoom = false
 
             gsap.to(this.instance.position, { duration: duration, ease: "power1.inOut",
-            x: -11.1,
-            y: -1,
-            z: -7.6})
+             x: 10,
+             y: -1,
+             z: 0})
             
             gsap.to(this.controls.target, { duration: duration, ease: "power1.inOut",
-            x: 0,
-            y: 0,
-            z: -1})
+            x: -2,
+            y: -1,
+            z: 0})
 
             await this.sleep(1500)
             this.controls.enableRotate = true
             this.controls.enableZoom = true
         }
 
-        this.transitions.jZhou = async (duration) =>
+        this.transitions.roadmaps = async (duration) =>
         {
             this.controls.enableRotate = false
             this.controls.enableZoom = false
 
             gsap.to(this.instance.position, { duration: duration, ease: "power1.inOut",
-            x: -10.2,
-            y: 6.3,
-            z: 3.8})
-
-            await this.sleep(1500)
-            this.controls.enableRotate = true
-            this.controls.enableZoom = true
-        }
-
-        this.transitions.aboutMe = async (duration) =>
-        {
-            this.controls.enableRotate = false
-            this.controls.enableZoom = false
-
-            gsap.to(this.instance.position, { duration: duration, ease: "power1.inOut",
-            x: 0.66,
-            y: 3.8,
-            z: this.aboutMeDistance})
+            x: 1.7,
+            y: -1.5,
+            z: -3.2})
             gsap.to(this.controls.target, { duration: duration, ease: "power1.inOut",
-            x: 0.66,
-            y: 3.8,
-            z: 0.7})
+            x: 1.7,
+            y: -1.5,
+            z: -4})
 
             await this.sleep(1500)
             // this.controls.enableRotate = true
             this.controls.enableZoom = true
         }
 
-        this.transitions.credits = async (duration) =>
-        {
-            this.controls.enableRotate = false
-            this.controls.enableZoom = false
-
-            gsap.to(this.instance.position, { duration: duration, ease: "power1.inOut",
-            x: -0.6,
-            y: -1.05,
-            z: 3.8})
-            gsap.to(this.controls.target, { duration: duration, ease: "power1.inOut",
-            x: -0.6,
-            y: -1.05,
-            z: 2.2})
-
-            await this.sleep(1500)
-            // this.controls.enableRotate = true
-            this.controls.enableZoom = true
-        }
-    
     }
 
     sleep(ms) 

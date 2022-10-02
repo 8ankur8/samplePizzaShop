@@ -84,7 +84,7 @@ export default class Materials
         // this.bigScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.bigScreenDefaultTexture)
         // this.vendingMachineScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.vendingMachineDefaultTexture)
         this.arcadeScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.arcadeScreenDefaultTexture)
-        this.arcadeDisplayMaterial =this.getTransitionShaderMaterial(this.resources.items.arcadeScreenDefaultTexture)
+        this.arcadeDisplayMaterial =this.getTransitionShaderMaterial(this.resources.items.arcadeDefaultTexture)
 
         this.sideScreenMaterial = this.getSideScreenShaderMaterial(this.resources.items.sideScreen1Texture)
 

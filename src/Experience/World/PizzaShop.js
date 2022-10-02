@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { DoubleSide } from 'three'
 import Experience from '../Experience.js'
 
 export default class PizzaShop
@@ -12,11 +13,6 @@ export default class PizzaShop
         this.debug = this.experience.debug
         this.materials = this.experience.materials
 
-        // Debug
-        if(this.debug.active)
-        {
-            // this.debugFolder = this.debug.ui.addFolder('ramenShop')
-        }
 
         // Resource
         this.resource = this.resources.items.pizzaShopModel
@@ -28,7 +24,7 @@ export default class PizzaShop
     parseModel()
     {
         this.model = this.resource.scene
-        this.model.rotation.y = Math.PI
+        //this.model.rotation.y = Math.PI
         this.model.position.y = -3
         console.log(this.model)
 
@@ -66,10 +62,16 @@ export default class PizzaShop
                 _child.material = new THREE.MeshNormalMaterial()
             }
         })
-        this.arcadeDisplay.material = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: false})
+
+        this.resources.on('texturesMapped', () =>{
+            //this.arcadeDisplay.material = this.materials.arcadeScreenMaterial
+            this.arcadeDisplay.material = this.materials.arcadeDisplayMaterial
+        })
+        
         
         this.model.position.y = - 3
         this.scene.add(this.model)
+           
     }
 
     setEaselMaterial()

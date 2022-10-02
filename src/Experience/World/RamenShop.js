@@ -170,14 +170,6 @@ export default class RamenShop
 
             this.vendingMachineScreen.material = this.materials.vendingMachineScreenMaterial
 
-            // ShaderMaterials
-
-            //this.hologramBase = new THREE.Mesh(this.hologramBaseGeometry, this.materials.hologramBaseMaterial)
-            //this.hologramBase.position.x = -0.13
-            //this.hologramBase.position.z = -0.95
-            //this.hologramBase.rotation.x = Math.PI * -0.5
-            //this.scene.add(this.hologramBase)
-
             if(this.debug.active)
             {
                 this.debugFolder = this.debug.ui.addFolder('hologramBasePosition')
@@ -189,6 +181,7 @@ export default class RamenShop
         })
         this.model.position.y = - 3
         //this.scene.add(this.model)
+        
     }
 
     setEaselMaterial()

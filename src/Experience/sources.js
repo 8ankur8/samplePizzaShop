@@ -78,12 +78,6 @@ export default [
     },
 
     {
-        name: 'arcadeDefaultTexture',
-        type: 'KTX2Texture',
-        path: 'textures/screens/arcadeScreens/arcadeScreenDefault.ktx2'
-    },
-
-    {
         name: 'arcadeScreenCreditsTexture',
         type: 'KTX2Texture',
         path: 'textures/screens/arcadeScreens/arcadeScreenCredits.ktx2'
@@ -93,6 +87,34 @@ export default [
         name: 'arcadeScreenThanksTexture',
         type: 'KTX2Texture',
         path: 'textures/screens/arcadeScreens/arcadeScreenThanks.ktx2'
+    },
+
+    // new arcade
+
+    {
+        name: 'arcadeDefaultTexture',
+        type: 'texture',
+        path: 'textures/screens/arcade/roadmap.png'
+    },
+    {
+        name: 'arcadeTexture1',
+        type: 'texture',
+        path: 'textures/screens/arcade/roadmap1.png'
+    },
+    {
+        name: 'arcadeTexture2',
+        type: 'texture',
+        path: 'textures/screens/arcade/roadmap2.png'
+    },
+    {
+        name: 'arcadeTexture3',
+        type: 'texture',
+        path: 'textures/screens/arcade/roadmap3.png'
+    },
+    {
+        name: 'arcadeTexture4',
+        type: 'texture',
+        path: 'textures/screens/arcade/roadmap4.png'
     },
 
     // Easel
