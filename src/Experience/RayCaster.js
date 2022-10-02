@@ -47,7 +47,7 @@ export default class RayCaster
                 this.hitBoxMaterial
             )
             this.arcadeHitBox.position.set(1.7,-1.9,-4.3)
-            this.arcadeHitBox.visible = true
+            this.arcadeHitBox.visible = false
 
 
             this.scene.add(this.arcadeMachineHitBox,this.arcadeHitBox)
