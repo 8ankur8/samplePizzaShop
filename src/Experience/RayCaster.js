@@ -46,7 +46,7 @@ export default class RayCaster
                 this.hitBoxMaterial
             )
             this.arcadeHitBox.position.set(1.7,-1.9,-4.3)
-            this.arcadeHitBox.visible = true
+            this.arcadeHitBox.visible = false
 
             this.backHitBoxGeometry = new THREE.PlaneGeometry( 0.1, 0.1)
 
