@@ -17,8 +17,6 @@ export default class PreLoader extends EventEmitter
         this.cooking = document.querySelector('#cooking')
         this.startButton = document.querySelector('.start')       
 
-
-
         // Progress
         this.resources.on('itemLoaded', () =>
         {
@@ -78,7 +76,6 @@ export default class PreLoader extends EventEmitter
             // Wait before performance Check
             await this.sleep(500)
            
-
             // Emit Event
             this.trigger('start')
 

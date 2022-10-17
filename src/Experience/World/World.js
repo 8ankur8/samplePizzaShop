@@ -1,6 +1,6 @@
 import Experience from '../Experience.js'
 import Environment from './Environment.js'
-import RamenShop from './RamenShop.js'
+import PizzaMan from './PizzaMan.js'
 import PizzaShop from './PizzaShop.js'
 
 
@@ -16,8 +16,9 @@ export default class World
         this.resources.on('ready', () =>
         {
             // Setup
-            this.ramenShop = new RamenShop()
+            //this.ramenShop = new RamenShop()
             this.pizzaShop = new PizzaShop()
+            this.pizzaMan = new PizzaMan()
             //this.hologram = new Hologram()
             //this.reflections = new Reflections()
         })

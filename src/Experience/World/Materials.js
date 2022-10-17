@@ -67,19 +67,12 @@ export default class Materials
     {
 
         // map baked textures
-        this.ramenShopMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.ramenShopBakedTexture })
-        this.machinesMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.machinesBakedTexture })
-        this.floorMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.floorBakedTexture })
-        this.miscMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.miscBakedTexture })
-        this.graphicsMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.graphicsBakedTexture })
-
-        // map matcap textures
-        this.dishMatcapMaterial = new THREE.MeshMatcapMaterial({matcap: this.resources.items.dishMatcapTexture, side: THREE.DoubleSide})
-        this.fanMatcapMaterial = new THREE.MeshMatcapMaterial({matcap: this.resources.items.fanMatcapTexture})
-        this.lightMatcapMaterial = new THREE.MeshMatcapMaterial({matcap: this.resources.items.lightMatcapTexture})
-        this.neonBlueMatcapMaterial = new THREE.MeshMatcapMaterial({matcap: this.resources.items.neonBlueMatcapTexture})
-        this.neonGreenMatcapMaterial = new THREE.MeshMatcapMaterial({matcap: this.resources.items.neonGreenMatcapTexture})
-
+        //this.ramenShopMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.ramenShopBakedTexture })
+        //this.machinesMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.machinesBakedTexture })
+        //this.floorMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.floorBakedTexture })
+        //this.miscMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.miscBakedTexture })
+        //this.graphicsMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.graphicsBakedTexture })
+        
         // map screen textures
         // this.bigScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.bigScreenDefaultTexture)
         // this.vendingMachineScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.vendingMachineDefaultTexture)
@@ -225,8 +218,6 @@ export default class Materials
                 })
             
         }
-
-
 
         this.resources.trigger('texturesMapped')
     }

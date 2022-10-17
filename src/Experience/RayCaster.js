@@ -24,7 +24,6 @@ export default class RayCaster
         {
             // Setup
             this.config.touch = this.experience.config.touch
-            this.ramenShop = this.experience.world.ramenShop
             this.pizzaShop = this.experience.world.pizzaShop
             
             this.raycaster = new THREE.Raycaster()
@@ -49,15 +48,22 @@ export default class RayCaster
             this.arcadeHitBox.position.set(1.7,-1.9,-4.3)
             this.arcadeHitBox.visible = true
 
+            this.backHitBoxGeometry = new THREE.PlaneGeometry( 0.1, 0.1)
 
-            this.scene.add(this.arcadeMachineHitBox,this.arcadeHitBox)
+            this.roadmapBack = new THREE.Mesh(
+                this.backHitBoxGeometry,
+                this.hitBoxMaterial
+            )
+
+            this.roadmapBack.position.set(2.04,-1.26,-4.185)
+            this.roadmapBack.rotation.set(-0.2,0,0)
+            this.scene.add(this.arcadeMachineHitBox,this.arcadeHitBox,this.roadmapBack)
 
             // Objects to test
 
             this.objectsToTest = [
-                
                 this.pizzaShop.arcadeDisplay,
-  
+                this.roadmapBack
             ]
 
             // // touch objects
@@ -137,10 +143,13 @@ export default class RayCaster
             {
                   
                 //screens
-              
                 case this.pizzaShop.arcadeDisplay:
                     console.log("clicked")
                     this.controller.screenControls.arcadeDisplay()
+                    break
+                case this.roadmapBack:
+                    console.log("back")
+                    this.controller.screenControls.roadmapBack()
                     break    
 
             }

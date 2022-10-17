@@ -122,6 +122,4 @@ export default class Sounds
         this.hologram.play()
     }
 
-
-
 }

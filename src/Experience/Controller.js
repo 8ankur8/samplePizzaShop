@@ -19,8 +19,10 @@ export default class Controller
         this.setMenuControls()
         //this.setArcadeScreenControls()
         this.setArcadeDisplayControls()
+        //this.setBackControl()
         this.setCamControls()
-        
+        this.setkeyboard()
+
         this.resources.on('ready', () =>
         {
             this.ramenShop = this.experience.world.ramenShop
@@ -85,47 +87,9 @@ export default class Controller
 
     }
 
-    //arcade screen credit controls
 
-    setArcadeScreenControls()
-    {
-        this.screenControls = {}
-        this.screenControls.arcadeScreen = async () =>
-        {
-            if(this.logic.buttonsLocked === false && this.logic.mode === 'creditsStart' )
-            {
-                this.sounds.playArcade()
-                this.logic.mode = 'credits'
-                this.screenTransition(
-                    this.materials.arcadeScreenMaterial,
-                    this.resources.items.arcadeScreenCreditsTexture,
-                    0.2
-                )
-            }
-            else if(this.logic.buttonsLocked === false && this.logic.mode === 'credits' )
-            {
-                this.sounds.playArcade()
-                this.logic.mode = 'thanks'
-                this.screenTransition(
-                    this.materials.arcadeScreenMaterial,
-                    this.resources.items.arcadeScreenThanksTexture,
-                    0.2
-                )
-            }
-            else if(this.logic.buttonsLocked === false && this.logic.mode === 'thanks' )
-            {
-                this.sounds.playArcade()
-                this.logic.mode = 'menu'
-                this.camControls.toDefault()
-                this.screenTransition(
-                    this.materials.arcadeScreenMaterial,
-                    this.resources.items.arcadeScreenDefaultTexture,
-                    0.2
-                )
-            }
-        }
 
-    }
+
     // new
     setArcadeDisplayControls()
     {
@@ -168,8 +132,7 @@ export default class Controller
             else if(this.logic.buttonsLocked === false && this.logic.mode === 'roadmap3' )
             {
                 this.sounds.playArcade()
-                this.logic.mode = 'menu'
-                this.camControls.toDefault()
+                this.logic.mode = 'roadmaps'
                 this.screenTransition(
                     this.materials.arcadeDisplayMaterial,
                     this.resources.items.arcadeTexture4,
@@ -178,7 +141,24 @@ export default class Controller
             }
         }
 
+        this.screenControls.roadmapBack = async () =>
+        {
+            if(this.logic.buttonsLocked === false && this.logic.mode !== 'menu')
+            {
+                this.sounds.playArcade()
+                this.logic.mode = 'menu'
+                this.camControls.toDefault()
+                this.screenTransition(
+                    this.materials.arcadeDisplayMaterial,
+                    this.resources.items.arcadeDefaultTexture,
+                    0.2
+                )
+            }
+
+        }
+
     }
+
 
     // camera transitions and angles
 
@@ -200,7 +180,6 @@ export default class Controller
         this.camControls.toCredits = async () =>
         {
             this.sounds.playWhoosh()
-
             this.logic.lockButtons(1500)
             this.camera.camAngle.unlocked()
             this.camera.transitions.credits(1.5)
@@ -218,6 +197,22 @@ export default class Controller
             this.camera.camAngle.roadmaps()
         }
         
+    }
+
+    setkeyboard(){
+        this.keyboard = {}
+
+        this.keyboard.keyDown = async (event) =>
+        {
+            if(event.keyCode === 27 && this.logic.mode !== 'menu')
+            {
+                this.screenControls.roadmapBack()
+                
+            }
+        }
+        
+        window.addEventListener('keydown', this.keyboard.keyDown)
+        window.addEventListener('keyup', this.keyboard.keyUp)
     }
 
     screenTransition(material,newTexture, duration,)
@@ -250,6 +245,7 @@ export default class Controller
         })
     }
 
+    
     sleep(ms) 
     {
         return new Promise(resolve => setTimeout(resolve, ms));

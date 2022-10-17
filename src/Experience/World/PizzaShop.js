@@ -26,7 +26,7 @@ export default class PizzaShop
         this.model = this.resource.scene
         //this.model.rotation.y = Math.PI
         this.model.position.y = -3
-        console.log(this.model)
+        //console.log(this.model)
 
         this.arcadeDisplay = this.model.children.find(child => child.name === 'arcadeDisplay')
 
@@ -73,10 +73,5 @@ export default class PizzaShop
         this.scene.add(this.model)
            
     }
-
-    setEaselMaterial()
-    {
-        this.materials = this.experience.materials
-        this.easelFrontGraphic.material = this.materials.easelMaterial
-    }
+    
 }
