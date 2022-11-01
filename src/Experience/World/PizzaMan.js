@@ -18,12 +18,15 @@ export default class PizzaMan
         this.resource = this.resources.items.pizzaManModel
 
         this.parseModel()
+        this.setAnimation()
         this.setMaterials()
+        
     }
 
     parseModel()
     {
         this.model = this.resource.scene
+        
         //this.model.rotation.y = Math.PI
         //this.model.position.y = -3
         //console.log(this.model)
@@ -49,20 +52,30 @@ export default class PizzaMan
 
     setMaterials()
     {
-        // Set Materials
+        
         this.model.traverse((_child) =>
         {
            if(_child instanceof THREE.Mesh )
            {
                _child.receiveShadow = true
                _child.castShadow = true
-               //_child.material = new THREE.MeshNormalMaterial()
+               _child.material = new THREE.MeshNormalMaterial()
            }
          })
 
-        this.model.position.y = - 3
+        this.model.position.set(1,-3,-2)
+        this.model.scale.set(1.5,1.5,1.5)
         this.scene.add(this.model)
            
+    }
+
+    setAnimation(){
+        this.animations =this.resource.animations
+        this.mixer = new THREE.AnimationMixer(this.model)
+        
+        this.idealAction = this.mixer.clipAction(this.animations[0]) 
+        this.idealAction.play()
+        
     }
 
 }

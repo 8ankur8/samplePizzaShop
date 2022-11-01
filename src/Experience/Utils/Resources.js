@@ -2,8 +2,7 @@ import * as THREE from 'three'
 import Experience from '../Experience.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader.js'
-import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
+
 import EventEmitter from './EventEmitter.js'
 
 export default class Resources extends EventEmitter
@@ -41,14 +40,6 @@ export default class Resources extends EventEmitter
         this.loaders.textureLoader = new THREE.TextureLoader()
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()
 
-        this.loaders.basisTextureLoader = new BasisTextureLoader()
-        this.loaders.basisTextureLoader.setTranscoderPath('/basis/')
-        this.loaders.basisTextureLoader.detectSupport( this.renderer )
-
-        this.loaders.KTX2TextureLoader = new KTX2Loader()
-        this.loaders.KTX2TextureLoader.setTranscoderPath('/basis/')
-        this.loaders.KTX2TextureLoader.detectSupport( this.renderer )
-
     }
 
     startLoading()
@@ -63,6 +54,7 @@ export default class Resources extends EventEmitter
                     (file) =>
                     {
                         this.sourceLoaded(source, file)
+                        
                     }
                 )
             }
@@ -76,42 +68,6 @@ export default class Resources extends EventEmitter
                         file.flipY = false
                         file.encoding = THREE.sRGBEncoding
                         this.sourceLoaded(source, file)
-                    }
-                )
-            }
-
-            else if(source.type === 'basisTexture')
-            {
-                this.loaders.basisTextureLoader.load(
-                    source.path,
-                    (file) =>
-                    {
-                        file.encoding = THREE.sRGBEncoding
-                        this.sourceLoaded(source, file)
-
-                        //if(source.path.includes("smallScreen1"))
-                        //{this.carousel1.push(file)}
-
-                        //if(source.path.includes("smallScreen2"))
-                        //{this.carousel2.push(file)}
-                    }
-                )
-            }
-
-            else if(source.type === 'KTX2Texture')
-            {
-                this.loaders.KTX2TextureLoader.load(
-                    source.path,
-                    (file) =>
-                    {
-                        file.encoding = THREE.sRGBEncoding
-                        this.sourceLoaded(source, file)
-
-                        // if(source.path.includes("smallScreen1"))
-                        // {this.carousel1.push(file)}
-
-                        // if(source.path.includes("smallScreen2"))
-                        // {this.carousel2.push(file)}
                     }
                 )
             }
