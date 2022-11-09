@@ -9,12 +9,15 @@ export default class Environment
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
+
         
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('environment')
-        }
+      
+        this.lite = new THREE.AmbientLight(0xffffff)
+        this.scene.add( this.lite )
+        
+        this.point = new THREE.PointLight( 0xff0000, 10, 100 );
+        this.point.position.set( 6, 6, 6 );
+        this.scene.add( this.point );
 
     }
 }

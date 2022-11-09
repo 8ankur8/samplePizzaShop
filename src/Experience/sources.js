@@ -10,6 +10,12 @@ export default [
         type: 'gltfModel',
         path: 'models/character/pizzaMan.glb'
     },
+
+    {
+        name: 'pizzaSM',
+        type: 'gltfModel',
+        path: 'models/pizzaShop/scene.glb'
+    },
     // Baked Textures
     /*
     {

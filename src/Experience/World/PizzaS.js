@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { DoubleSide } from 'three'
 import Experience from '../Experience.js'
 
-export default class PizzaMan
+export default class PizzaS
 {
     constructor()
     {
@@ -15,23 +15,21 @@ export default class PizzaMan
 
 
         // Resource
-        this.resource = this.resources.items.pizzaManModel
+        this.resource = this.resources.items.pizzaSM
 
         this.parseModel()
-        this.setAnimation()
         this.setMaterials()
-        
+       
     }
 
     parseModel()
     {
         this.model = this.resource.scene
-        
         //this.model.rotation.y = Math.PI
-        //this.model.position.y = -3
+        this.model.position.y = -3
         //console.log(this.model)
 
-        this.arcadeDisplay = this.model.children.find(child => child.name === 'arcadeDisplay')
+      
 
         //Moving Objects
 
@@ -47,35 +45,32 @@ export default class PizzaMan
         
         //this.vendingMachineScreen = this.model.children.find(child => child.name === 'vendingMachineScreen')
 
+        
+
+        //this.easelFrontGraphic = this.model.children.find(child => child.name === 'easelFrontGraphic')
 
     }
 
     setMaterials()
     {
-        
+        // Set Materials
         this.model.traverse((_child) =>
         {
-           if(_child instanceof THREE.Mesh )
-           {
-               _child.receiveShadow = true
-               _child.castShadow = true
-               _child.material = new THREE.MeshNormalMaterial()
-           }
-         })
+            if( _child instanceof THREE.Mesh )
+            {
+                _child.material = new THREE.MeshBasicMaterial({color:"pink"})
+            }
+        })
+        
+        
+        this.model.position.y = - 3
+        this.model.position.z = - 10
+        this.model.position.x = 4
 
-        this.model.position.set(1,-3,-2)
-        this.model.scale.set(1.5,1.5,1.5)
+        this.model.rotation.y = Math.PI/2
         this.scene.add(this.model)
            
     }
 
-    setAnimation(){
-        this.animations =this.resource.animations
-        this.mixer = new THREE.AnimationMixer(this.model)
-        
-        this.idealAction = this.mixer.clipAction(this.animations[0]) 
-        this.idealAction.play()
-        
-    }
-
+    
 }
