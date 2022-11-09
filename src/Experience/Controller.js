@@ -17,7 +17,7 @@ export default class Controller
 
         this.setLogic()
         this.setMenuControls()
-        
+        //this.setArcadeScreenControls()
         this.setArcadeDisplayControls()
         //this.setBackControl()
         this.setCamControls()
@@ -85,27 +85,10 @@ export default class Controller
             }
         }
 
-        this.menuControls.teamframe = async (obj) =>
-        {
-            if(this.logic.buttonsLocked === false && this.logic.mode === 'menu')
-            {
-                this.sounds.playClick()
-                this.logic.mode = 'team'
-                this.camControls.toteamframe()
-            }
-        }
-
-        this.menuControls.checkpoint2 = async (obj) =>
-        {
-            if(this.logic.buttonsLocked === false && this.logic.mode === 'menu')
-            {
-                this.sounds.playClick()
-                this.logic.mode = 'cp2'
-                this.camControls.tocheckpoint2()
-            }
-        }
-
     }
+
+
+
 
     // new
     setArcadeDisplayControls()
@@ -176,6 +159,7 @@ export default class Controller
 
     }
 
+
     // camera transitions and angles
 
     setCamControls()
@@ -185,6 +169,7 @@ export default class Controller
         this.camControls.toDefault = async () =>
         {
             this.sounds.playWhoosh()
+
             this.logic.lockButtons(1500)
             this.camera.camAngle.unlocked()
             this.camera.transitions.default(1.5)
@@ -211,28 +196,6 @@ export default class Controller
             await this.sleep(1500)
             this.camera.camAngle.roadmaps()
         }
-
-        this.camControls.tocheckpoint2 = async () =>
-        {
-            this.sounds.playWhoosh()
-
-            this.logic.lockButtons(1500)
-            this.camera.camAngle.unlocked()
-            this.camera.transitions.checkpoint2(1.5)
-            await this.sleep(1500)
-            this.camera.camAngle.checkpoint2()
-        }
-
-        this.camControls.toteamframe = async () =>
-        {
-            this.sounds.playWhoosh()
-
-            this.logic.lockButtons(1500)
-            this.camera.camAngle.unlocked()
-            this.camera.transitions.teamframe(1.5)
-            await this.sleep(1500)
-            this.camera.camAngle.teamframe()
-        }
         
     }
 
@@ -243,7 +206,8 @@ export default class Controller
         {
             if(event.keyCode === 27 && this.logic.mode !== 'menu')
             {
-                this.screenControls.roadmapBack()   
+                this.screenControls.roadmapBack()
+                
             }
         }
         

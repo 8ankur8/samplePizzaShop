@@ -32,7 +32,15 @@ export default class RayCaster
 
             this.hitBoxMaterial = new THREE.MeshNormalMaterial({wireframe: true})
            
+            this.arcadeMachineHitBox = new THREE.Mesh(
+                new THREE.BoxGeometry( 1.0, 2.5, 1.0 ),
+                this.hitBoxMaterial
+            )
+            this.arcadeMachineHitBox.position.set(-1.7,-1.9,4.3)
+            this.arcadeMachineHitBox.visible = false
+
             //pizza wallet arcade
+
             this.arcadeHitBox = new THREE.Mesh(
                 new THREE.BoxGeometry( 1.0, 2.5, 1.0 ),
                 this.hitBoxMaterial
@@ -46,82 +54,16 @@ export default class RayCaster
                 this.backHitBoxGeometry,
                 this.hitBoxMaterial
             )
+
             this.roadmapBack.position.set(2.04,-1.26,-4.185)
             this.roadmapBack.rotation.set(-0.2,0,0)
-
-            this.bottonHitbox = new THREE.Mesh(
-                new THREE.BoxGeometry( 0.06, 0.06, 0.06 ),
-                this.hitBoxMaterial
-            )
-            this.bottonHitbox.position.set(1.54,-1.71,-3.84)
-            this.bottonHitbox.visible = true
-
-            this.scene.add(this.arcadeMachineHitBox,this.arcadeHitBox,this.roadmapBack,this.bottonHitbox)
-
-            //checkpoints
-
-            this.checkpoints = new THREE.Group()
-            this.scene.add(this.checkpoints)
-
-            this.checkpoint1HitBox = new THREE.Mesh(
-                new THREE.BoxGeometry( 0.2, 0.2, 0.2 ),
-                this.hitBoxMaterial
-            )
-            this.checkpoint1HitBox.position.set(-0.0,-1.4,-2.5)
-            this.checkpoint1HitBox.visible = true
-
-            this.checkpoint2HitBox = new THREE.Mesh(
-                new THREE.BoxGeometry( 0.2, 0.2, 0.2 ),
-                this.hitBoxMaterial
-            )
-            this.checkpoint2HitBox.position.set(4.25,-1.4,2.0)
-            this.checkpoint2HitBox.visible = true
-
-            this.checkpoint3HitBox = new THREE.Mesh(
-                new THREE.BoxGeometry( 0.2, 0.2, 0.2 ),
-                this.hitBoxMaterial
-            )
-            this.checkpoint3HitBox.position.set(-3.0,-1.5,2.5)
-            this.checkpoint3HitBox.visible = true
-
-            this.checkpoints.add(this.checkpoint1HitBox,this.checkpoint2HitBox,this.checkpoint3HitBox)
-
-            //teamframe
-
-            this.teamframe = new THREE.Group()
-            this.scene.add(this.teamframe)
-
-
-            this.frameHitBox = new THREE.Mesh(
-                new THREE.BoxGeometry( 1.0, 0.7, 0.05),
-                new THREE.MeshBasicMaterial({color:"gray"})
-            )
-            this.frameHitBox.position.set(2.0,-1.3,4.74)
-            this.frameHitBox.visible = true
-
-            this.person1HitBox = new THREE.Mesh(
-                new THREE.BoxGeometry( 0.1, 0.1,0.05),
-                new THREE.MeshBasicMaterial({color:"red"})
-            )
-            this.person1HitBox.position.set(2.2,-1.3,4.73)
-            this.person1HitBox.visible = true
-
-            this.person1DHitBox = new THREE.Mesh(
-                new THREE.BoxGeometry( 0.16, 0.1,0.05),
-                new THREE.MeshBasicMaterial({color:"blue"})
-            )
-            this.person1DHitBox.position.set(2.0,-1.2,4.73)
-            this.person1DHitBox.visible = true
-
-            
-            this.teamframe.add(this.frameHitBox ,this.person1HitBox,this.person1DHitBox)
+            this.scene.add(this.arcadeMachineHitBox,this.arcadeHitBox,this.roadmapBack)
 
             // Objects to test
 
             this.objectsToTest = [
                 this.pizzaShop.arcadeDisplay,
-                this.roadmapBack,
-                this.bottonHitbox
+                this.roadmapBack
             ]
 
             // // touch objects
@@ -147,12 +89,7 @@ export default class RayCaster
 
             // add the machines
 
-            this.machinesToTest = [ this.arcadeHitBox ,
-                this.checkpoint1HitBox,
-                this.checkpoint2HitBox,
-                this.checkpoint3HitBox,
-                this.frameHitBox
-            ]
+            this.machinesToTest = [ this.arcadeHitBox ]
 
             this.touchedPoints = []
 
@@ -211,11 +148,9 @@ export default class RayCaster
                     this.controller.screenControls.arcadeDisplay()
                     break
                 case this.roadmapBack:
+                    console.log("back")
                     this.controller.screenControls.roadmapBack()
-                    break 
-                case this.bottonHitbox:
-                    this.controller.screenControls.arcadeDisplay()
-                    break           
+                    break    
 
             }
 
@@ -232,29 +167,8 @@ export default class RayCaster
                 case this.arcadeHitBox:
                     console.log("clicked")
                     this.controller.menuControls.roadmaps()
-                    break 
-                
-                case this.checkpoint1HitBox:
-                    console.log("clickedpoint1")
-                    //this.controller.menuControls.checkpoint1HitBox()
-                     break
-                     
-                case this.checkpoint2HitBox:
-                    console.log("clickedpoint2")
-                    this.controller.menuControls.checkpoint2()
-                    break 
+                    break    
 
-                    
-                case this.checkpoint3HitBox:
-                    console.log("clickedpoint3")
-                    //this.controller.menuControls.roadmaps()
-                    break   
-
-                case this.frameHitBox:
-                    console.log("team")
-                    this.controller.menuControls.teamframe()
-                    break   
-                 
             }
         }
     }

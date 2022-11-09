@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import Experience from './Experience.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls.js'
 import gsap from 'gsap'
 
 export default class Camera
@@ -13,7 +12,6 @@ export default class Camera
         this.sizes = this.experience.sizes
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
-        this.time = this.experience.time
         this.config = this.experience.config
 
         if(this.config.vertical === true)
@@ -27,11 +25,39 @@ export default class Camera
         this.projectsDistance = 4.2
         }
 
+
+
         this.setInstance()
         this.setControls()
         this.setCamAngles()
         this.setTransitions()
         
+
+        if(this.debug.active)
+        {
+            this.debugFolder = this.debug.ui.addFolder('camera')
+
+            this.positionDebugFolder = this.debugFolder.addFolder('cameraPosition')
+            this.positionDebugFolder.add(this.instance.position, 'x').min(-20).max(20).step(0.1)
+            this.positionDebugFolder.add(this.instance.position, 'y').min(-20).max(20).step(0.1)
+            this.positionDebugFolder.add(this.instance.position, 'z').min(-20).max(20).step(0.1)
+
+            this.targetDebugFolder = this.debugFolder.addFolder('cameraTarget')
+            this.targetDebugFolder.add(this.controls.target, 'x').min(-20).max(20).step(0.1)
+            this.targetDebugFolder.add(this.controls.target, 'y').min(-20).max(20).step(0.1)
+            this.targetDebugFolder.add(this.controls.target, 'z').min(-20).max(20).step(0.1)
+
+            this.debugFolder.add(this.controls, 'enablePan')
+
+            this.cam = false
+            this.cameraToggle = {unlockCamera:false}
+            this.debugFolder
+            .add(this.cameraToggle, 'unlockCamera')
+            .onChange(() =>
+            {
+                this.cam ? this.camAngle.default() : this.camAngle.unlocked()
+            })   
+        }
     }
 
     setInstance()
@@ -72,7 +98,6 @@ export default class Camera
 
         this.camAngle.default = () =>
         {
-        
             this.controls.minDistance = 0
             this.controls.maxDistance = 16
             this.controls.minAzimuthAngle = 0 
@@ -80,61 +105,46 @@ export default class Camera
             this.controls.minPolarAngle = Math.PI *0.2
             this.controls.maxPolarAngle = Math.PI * 0.55
             this.cam = false
+        }
+
+        this.camAngle.vendingMachine = () =>
+        {
+            this.controls.minDistance = 2
+            this.controls.maxDistance = 3.5
+            this.controls.minAzimuthAngle = -(Math.PI * 0.1) //left
+            this.controls.maxAzimuthAngle = Math.PI * 0.1 //right
+            this.controls.minPolarAngle = Math.PI * .4
+            this.controls.maxPolarAngle = Math.PI * .53
+        }
+
+        this.camAngle.aboutMe = () =>
+        {
+            this.controls.minDistance = 1
+            this.controls.maxDistance = this.aboutMeDistance
+            this.controls.minAzimuthAngle = -(Math.PI * 0.2) //left
+            this.controls.maxAzimuthAngle = Math.PI * 0.2 //right
+            this.controls.minPolarAngle = Math.PI * .3
+            this.controls.maxPolarAngle = Math.PI * .65
+        }
+
+        this.camAngle.credits = () =>
+        {
+            this.controls.minDistance = 0
+            this.controls.maxDistance = 2
+            this.controls.minAzimuthAngle = -(Math.PI * 0.2) //left
+            this.controls.maxAzimuthAngle = Math.PI * 0.2 //right
+            this.controls.minPolarAngle = Math.PI * .3
+            this.controls.maxPolarAngle = Math.PI * .65
         }
 
         this.camAngle.roadmaps = () =>
         {
-            this.controls.maxDistance = 30
             this.controls.minDistance = 0
-            this.controls.minAzimuthAngle = 0
-            this.controls.maxAzimuthAngle = Math.PI * 1.999
-            this.controls.minPolarAngle = 0
-            this.controls.maxPolarAngle = Math.PI
-            this.cam = true
-        }
-
-        this.camAngle.checkpoint1 = () =>
-        {
-            this.controls.minDistance = 0
-            this.controls.maxDistance = 16
-            this.controls.minAzimuthAngle = 0 
-            this.controls.maxAzimuthAngle = Math.PI *1.9999
-            this.controls.minPolarAngle = Math.PI *0.2
-            this.controls.maxPolarAngle = Math.PI * 0.55
-            this.cam = false
-        }
-
-        this.camAngle.checkpoint2 = () =>
-        {
-            this.controls.minDistance = 0
-            this.controls.maxDistance = 16
-            this.controls.minAzimuthAngle = 0 
-            this.controls.maxAzimuthAngle = Math.PI *1.9999
-            this.controls.minPolarAngle = Math.PI *0.2
-            this.controls.maxPolarAngle = Math.PI * 0.55
-            this.cam = false
-        }
-
-        this.camAngle.checkpoint3 = () =>
-        {
-            this.controls.minDistance = 0
-            this.controls.maxDistance = 16
-            this.controls.minAzimuthAngle = 0 
-            this.controls.maxAzimuthAngle = Math.PI *1.9999
-            this.controls.minPolarAngle = Math.PI *0.2
-            this.controls.maxPolarAngle = Math.PI * 0.55
-            this.cam = false
-        }
-
-        this.camAngle.teamframe = () =>
-        {
-            this.controls.minDistance = 0
-            this.controls.maxDistance = 16
-            this.controls.minAzimuthAngle = 0 
-            this.controls.maxAzimuthAngle = Math.PI *1.9999
-            this.controls.minPolarAngle = Math.PI *0.2
-            this.controls.maxPolarAngle = Math.PI * 0.55
-            this.cam = false
+            this.controls.maxDistance = 2
+            this.controls.minAzimuthAngle = -(Math.PI * 0.2) //left
+            this.controls.maxAzimuthAngle = Math.PI * 0.2 //right
+            this.controls.minPolarAngle = Math.PI * .3
+            this.controls.maxPolarAngle = Math.PI * .65
         }
     
     }
@@ -149,20 +159,18 @@ export default class Camera
             this.controls.enableZoom = false
 
             gsap.to(this.instance.position, { duration: duration, ease: "power1.inOut",
-             x: 6,
+             x: 10,
              y: -1,
-             z: -2.0})
+             z: 0})
             
             gsap.to(this.controls.target, { duration: duration, ease: "power1.inOut",
-            x: 5.9,
+            x: -2,
             y: -1,
-            z: -2.0})
+            z: 0})
 
             await this.sleep(1500)
             this.controls.enableRotate = true
             this.controls.enableZoom = true
-            this.controls.enabled = true
-            
         }
 
         this.transitions.roadmaps = async (duration) =>
@@ -180,52 +188,10 @@ export default class Camera
             z: -4})
 
             await this.sleep(1500)
-            this.controls.enableRotate = true
-            this.controls.enabled = true
-            
-        }
-
-        this.transitions.teamframe = async (duration) =>
-        {
-            this.controls.enableRotate = false
-            this.controls.enableZoom = false
-
-            gsap.to(this.instance.position, { duration: duration, ease: "power1.inOut",
-            x: 2.0,
-            y: -1.3,
-            z: 4})
-            gsap.to(this.controls.target, { duration: duration, ease: "power1.inOut",
-            x: 2.0,
-            y: -1.3,
-            z: 4.1})
-
-            await this.sleep(1500)
-            this.controls.enableRotate = true
-            this.controls.enabled = true
-            
-        }
-
-        this.transitions.checkpoint2 = async (duration) =>
-        {
-            this.controls.enableRotate = false
-            this.controls.enableZoom = false
-
-            gsap.to(this.instance.position, { duration: duration, ease: "power1.inOut",
-             x: 4.25,
-             y: -1,
-             z: 2.0})
-            
-            gsap.to(this.controls.target, { duration: duration, ease: "power1.inOut",
-            x: 4.25,
-            y: -1,
-            z: 2.1})
-
-            await this.sleep(1500)
-            this.controls.enableRotate = true
+            // this.controls.enableRotate = true
             this.controls.enableZoom = true
-            this.controls.enabled = true
-            
         }
+
     }
 
     sleep(ms) 
