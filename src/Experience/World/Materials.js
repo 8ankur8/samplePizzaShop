@@ -21,7 +21,7 @@ export default class Materials
         this.preLoader = this.experience.preLoader
         this.config = this.experience.config
 
-        this.mapColors()
+        //this.mapColors()
 
         // Wait for textures
         this.resources.on('ready', () =>
@@ -72,7 +72,8 @@ export default class Materials
         //this.floorMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.floorBakedTexture })
         //this.miscMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.miscBakedTexture })
         //this.graphicsMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.graphicsBakedTexture })
-        
+        this.ankurMaterial = new THREE.MeshBasicMaterial({ map: this.resources.items.ankurTexture, color: "0xffffff",transparent :true })
+
         // map screen textures
         // this.bigScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.bigScreenDefaultTexture)
         // this.vendingMachineScreenMaterial = this.getTransitionShaderMaterial(this.resources.items.vendingMachineDefaultTexture)

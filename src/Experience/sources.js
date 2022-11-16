@@ -16,38 +16,7 @@ export default [
         type: 'gltfModel',
         path: 'models/pizzaShop/scene.glb'
     },
-    // Baked Textures
-    /*
-    {
-        name: 'ramenShopBakedTexture',
-        type: 'KTX2Texture',
-        path: 'textures/baked/ramenShopBaked1024.ktx2'
-    },
-    {
-        name: 'machinesBakedTexture',
-        type: 'KTX2Texture',
-        path: 'textures/baked/machinesBaked1024.ktx2'
-    },
 
-    {
-        name: 'floorBakedTexture',
-        type: 'KTX2Texture',
-        path: 'textures/baked/floorBaked1024.ktx2'
-    },
-
-    {
-        name: 'miscBakedTexture',
-        type: 'KTX2Texture',
-        path: 'textures/baked/miscBaked1024.ktx2'
-    },
-
-    {
-        name: 'graphicsBakedTexture',
-        type: 'KTX2Texture',
-        path: 'textures/baked/graphicsBaked512.ktx2'
-    },
-   */
-   
     // new arcade
 
     {
@@ -76,7 +45,20 @@ export default [
         path: 'textures/screens/arcade/roadmap4.png'
     },
 
-    
+    //team
+
+    {
+        name: 'alphaTexture',
+        type: 'texture',
+        path: 'textures/team/alpha.png'
+    },
+
+    {
+        name: 'ankurTexture',
+        type: 'texture',
+        path: 'textures/team/ankur.png'
+    },
+
     // Videos
     {
         name: 'littleTVScreenVideoTexture',

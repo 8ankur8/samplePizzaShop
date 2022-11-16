@@ -19,6 +19,7 @@ export default class PizzaShop
 
         this.parseModel()
         this.setMaterials()
+       
     }
 
     parseModel()
@@ -73,5 +74,6 @@ export default class PizzaShop
         this.scene.add(this.model)
            
     }
+
     
 }

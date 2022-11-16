@@ -18,6 +18,7 @@ export default class RayCaster
         this.controller = this.experience.controller
         this.config = this.experience.config
         this.sounds = this.experience.sounds
+        this.materials = this.experience.materials
 
         // Wait for resources
         this.preLoader.on('start', () =>
@@ -91,7 +92,6 @@ export default class RayCaster
             this.teamframe = new THREE.Group()
             this.scene.add(this.teamframe)
 
-
             this.frameHitBox = new THREE.Mesh(
                 new THREE.BoxGeometry( 1.0, 0.7, 0.05),
                 new THREE.MeshBasicMaterial({color:"gray"})
@@ -103,14 +103,15 @@ export default class RayCaster
                 new THREE.BoxGeometry( 0.1, 0.1,0.05),
                 new THREE.MeshBasicMaterial({color:"red"})
             )
-            this.person1HitBox.position.set(2.2,-1.3,4.73)
+            this.person1HitBox.position.set(2.2,-1.3,4.72)
             this.person1HitBox.visible = true
 
             this.person1DHitBox = new THREE.Mesh(
-                new THREE.BoxGeometry( 0.16, 0.1,0.05),
-                new THREE.MeshBasicMaterial({color:"blue"})
+                new THREE.PlaneGeometry( 0.2, 0.2),
+                this.materials.ankurMaterial
             )
-            this.person1DHitBox.position.set(2.0,-1.2,4.73)
+            this.person1DHitBox.position.set(2.2,-1.175,4.68)
+            this.person1DHitBox.rotation.set(0.0,Math.PI,0.0)
             this.person1DHitBox.visible = false
 
             
@@ -169,12 +170,12 @@ export default class RayCaster
 
             })
 
-             window.addEventListener('mousemove', (event) =>
+            window.addEventListener('mousemove', (event) =>
             {
                this.cursor.x = event.clientX / this.sizes.width * 2 - 1
-                this.cursor.y = - (event.clientY / this.sizes.height) * 2 + 1
-                 this.hover(this.cursor)
-             })
+               this.cursor.y = - (event.clientY / this.sizes.height) * 2 + 1
+               this.hover(this.cursor)
+            })
 
 
             // Click listener
@@ -200,7 +201,7 @@ export default class RayCaster
             })
         })
     }
-
+    
     hover(cursor)
     {
         this.raycaster.setFromCamera(cursor, this.camera.instance)
@@ -214,7 +215,7 @@ export default class RayCaster
             this.person1DHitBox.visible = false
         }
     }
-
+    
     click(cursor)
     {
         this.raycaster.setFromCamera(cursor, this.camera.instance)
@@ -231,11 +232,15 @@ export default class RayCaster
                     this.controller.screenControls.arcadeDisplay()
                     break
                 case this.roadmapBack:
+                    console.log("ouut")
                     this.controller.screenControls.roadmapBack()
                     break 
                 case this.bottonHitbox:
-                    this.controller.screenControls.arcadeDisplay()
-                    break           
+                     this.controller.screenControls.arcadeDisplay()
+                    break
+                case this.person1HitBox:
+                     window.open('https://twitter.com/a_liveankur', '_blank');
+                     break                 
 
             }
 
@@ -276,5 +281,11 @@ export default class RayCaster
                  
             }
         }
+
+    }
+
+    sleep(ms) 
+    {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }

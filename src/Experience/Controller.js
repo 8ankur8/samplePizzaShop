@@ -100,7 +100,7 @@ export default class Controller
             if(this.logic.buttonsLocked === false && this.logic.mode === 'menu')
             {
                 this.sounds.playClick()
-                this.logic.mode = 'cp2'
+                this.logic.mode ='menu'
                 this.camControls.tocheckpoint2()
             }
         }

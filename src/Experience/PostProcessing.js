@@ -201,7 +201,6 @@ export default class PostProcessing
         if(this.bloomComposer) {this.bloomComposer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))}
         if(this.finalComposer) {this.finalComposer.setSize(this.sizes.width, this.sizes.height)}
         if(this.finalComposer) {this.finalComposer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))}
-
     }
 }
 
