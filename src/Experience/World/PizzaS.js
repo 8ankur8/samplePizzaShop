@@ -67,6 +67,8 @@ export default class PizzaS
         this.model.position.z = - 10
         this.model.position.x = 4
 
+        this.model.scale.set(0.01,0.01,0.01)
+
         this.model.rotation.y = Math.PI/2
         this.scene.add(this.model)
            
